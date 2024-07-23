@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # contest results data
-src/data
+src/data/*.json
