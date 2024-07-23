@@ -1,0 +1,212 @@
+:root {
+  --text-color: #000;
+  --body-background-color: #fff;
+  --game-background-color: #f4f4f4;
+  --group-background-color: #dedede;
+  --vote-background-color: #d3d3d3;
+  --vote-selected-background-color: #e9e9e9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #dfdfdf;
+    --body-background-color: #2c2c2c;
+    --game-background-color: #272727;
+    --group-background-color: #343434;
+    --vote-background-color: #2c2c2c;
+    --vote-selected-background-color: #414141;
+  }
+}
+
+html,
+body,
+#root {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+
+  background-color: var(--body-background-color);
+  color: var(--text-color);
+}
+
+#root {
+  isolation: isolate;
+}
+
+.app {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.loading {
+  padding: 20px;
+  text-align: center;
+}
+
+.mode-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+
+  padding: 0.5em;
+}
+
+.main {
+  margin-top: 0.5em;
+}
+
+.game {
+  background-color: var(--game-background-color);
+  padding: 10px;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  &__header {
+    background-color: var(--game-background-color);
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__score {
+    white-space: nowrap;
+  }
+
+  &__groups {
+    margin-top: 7.5px;
+  }
+
+  &__vote {
+    background-color: var(--vote-background-color);
+    padding: 10px;
+
+    &:not(:first-child) {
+      margin-top: 7.5px;
+    }
+
+    &__title {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    &__score {
+      &--deleted {
+        text-decoration: line-through;
+      }
+    }
+
+    &__feedback {
+      p {
+        margin: 0;
+
+        &:not(:first-child) {
+          margin-top: 5px;
+        }
+      }
+    }
+
+    &__note {
+      font-style: italic;
+    }
+
+    &__score,
+    &__feedback,
+    &__note {
+      margin-top: 5px;
+    }
+
+    &--selected {
+      background-color: var(--vote-selected-background-color);
+    }
+  }
+}
+
+.group {
+  background-color: var(--group-background-color);
+  padding: 10px;
+  margin-top: 10px;
+
+  &__header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__votes {
+    margin-top: 10px;
+  }
+}
+
+.buttons {
+  display: flex;
+  margin-top: 10px;
+  padding: 10px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  &__button {
+    button {
+      cursor: pointer;
+    }
+  }
+}
+
+.comment {
+  background-color: var(--game-background-color);
+
+  padding: 1em;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  &__author {
+    font-size: 1.2em;
+  }
+}
+
+.version {
+  text-align: center;
+  padding: 10px;
+
+  a {
+    color: var(--text-color);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .game {
+    &__subHeader {
+      display: block;
+    }
+  }
+}
