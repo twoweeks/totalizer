@@ -72,7 +72,8 @@ export const App: FunctionalComponent = () => {
       </DataProvider>
 
       <div class="version">
-        TWG Totalizer - <a href="https://github.com/twoweeks/totalizer">GitHub</a>
+        TWG Totalizer -{" "}
+        <a href="https://github.com/twoweeks/totalizer">GitHub</a>
       </div>
     </div>
   );
