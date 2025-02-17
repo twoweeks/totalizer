@@ -71,10 +71,10 @@ export const App: FunctionalComponent = () => {
         <main className="main">{pageContent}</main>
       </DataProvider>
 
-      <div class="version">
+      <footer class="copyright">
         TWG Totalizer -{" "}
         <a href="https://github.com/twoweeks/totalizer">GitHub</a>
-      </div>
+      </footer>
     </div>
   );
 };

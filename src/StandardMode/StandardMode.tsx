@@ -10,7 +10,20 @@ export const StandardMode: FunctionalComponent = () => {
   const locationSearch = useRef(window.location.search);
 
   const sortedByVotesResults = useMemo(() => {
-    return [...results.results].sort((a, b) => b.votes - a.votes);
+    const influenceMap = new Map(
+      results.influence.map((influence) => [
+        influence.gameIndex,
+        influence.influence,
+      ]),
+    );
+
+    return results.results
+      .toSorted((a, b) => {
+        const aInfluence = influenceMap.get(a.gameIndex) || 0;
+        const bInfluence = influenceMap.get(b.gameIndex) || 0;
+        return bInfluence - aInfluence;
+      })
+      .toSorted((a, b) => b.result - a.result);
   }, [results]);
 
   return (

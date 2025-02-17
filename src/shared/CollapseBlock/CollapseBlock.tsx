@@ -43,6 +43,7 @@ export const CollapseBlock: FunctionComponent<CollapseBlockProps> = ({
         <button
           className={clsx(styles.collapseBlock__button, buttonClassName)}
           onClick={() => setOpen(!open)}
+          type="button"
         >
           {open ? "︿" : "﹀"}
         </button>

@@ -11,14 +11,12 @@ export const VotesMode: FunctionalComponent = () => {
 
   return (
     <div className="authors">
-      {results.votes.map((vote, voteIndex) => {
-        const authorName =
-          vote.voterType === "judge"
-            ? `Судья (организатор)`
-            : `Автор игры ${results.games[vote.voterGameIndex]}`;
+      {results.voters.map((vote, voteIndex) => {
+        const isParticipant = vote.type === 'participant'
+        const authorName = isParticipant ? `Автор игры ${results.gamesList[vote.gameIndex ?? -1]}` : 'Организатор';
 
         const timestampDate = new Date(vote.timestamp);
-        const formatedTimestamp = timestampDate.toLocaleString();
+        const formattedTimestamp = timestampDate.toLocaleString();
 
         return (
           <CollapseBlock
@@ -34,14 +32,14 @@ export const VotesMode: FunctionalComponent = () => {
                   data-is-first={voteIndex === 0 ? "" : null}
                 >
                   Анкета отправлена{" "}
-                  <span title="Ваше местное время">{formatedTimestamp}</span>
+                  <span title="Ваше местное время">{formattedTimestamp}</span>
                 </div>
               </div>
             }
           >
-            {vote.feedbacks.map((feedback: any) => {
-              const gameTitle = results.games[feedback.gameIndex];
-              const isSelected = vote.selectedIndexesList.includes(
+            {vote.votes.map((feedback) => {
+              const gameTitle = results.gamesList[feedback.gameIndex];
+              const isSelected = vote.selectedGamesIndices.includes(
                 feedback.gameIndex,
               );
 
@@ -56,17 +54,20 @@ export const VotesMode: FunctionalComponent = () => {
                   <h4 className="author__vote__game">{gameTitle}</h4>
 
                   <div className="author__vote__feedback">
-                    <RenderTextParts textParts={feedback.text} />
+                    <RenderTextParts textParts={feedback.feedback} />
+                  </div>
+
+                  <div className="author__vote__score">
+                    Оценка: {feedback.score} / 10
                   </div>
 
                   {isSelected ? (
                     <div className="author__vote__note">
-                      {vote.voterType === "judge" ? "Судья" : "Автор"}{" "}
-                      проголосовал за эту игру
+                      {isParticipant ? 'Автор' : 'Организатор'} выбрал эту игру
                     </div>
                   ) : null}
 
-                  {feedback.gameIndex === vote.voterGameIndex ? (
+                  {feedback.gameIndex === vote.gameIndex ? (
                     <div className="author__vote__note">Игра автора</div>
                   ) : null}
                 </div>

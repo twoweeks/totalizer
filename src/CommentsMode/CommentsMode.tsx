@@ -8,16 +8,16 @@ export const CommentsMode: FunctionalComponent = () => {
   const { results } = useDataContext();
 
   const comments = useMemo(() => {
-    return results.votes
+    return results.voters
       .map((vote) => {
         return {
-          voterType: vote.voterType,
-          voterGameIndex: vote.voterGameIndex,
-          voterGame: results.games[vote.voterGameIndex],
+          voterType: vote.type,
+          voterGameIndex: vote.gameIndex,
+          voterGame: results.gamesList[vote.gameIndex ?? -1],
           contestFeedback: vote.contestFeedback,
         };
       })
-      .filter((vote) => !!vote.contestFeedback);
+      .filter((vote) => vote.contestFeedback.length > 0);
   }, [results]);
 
   return (
@@ -25,7 +25,7 @@ export const CommentsMode: FunctionalComponent = () => {
       {comments.map((commentInfo) => {
         const author =
           commentInfo.voterType === "judge"
-            ? `Судья (организатор)`
+            ? "Организатор"
             : `Автор игры ${commentInfo.voterGame}`;
 
         return (

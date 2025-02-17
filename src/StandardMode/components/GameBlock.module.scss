@@ -1,0 +1,83 @@
+.game {
+  background-color: var(--game-background-color);
+  padding: 10px;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  &__header {
+    background-color: var(--game-background-color);
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__result {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7.5px;
+  }
+
+  &__score {
+    white-space: nowrap;
+  }
+
+  &__groups {
+    margin-top: 7.5px;
+  }
+
+  &__vote {
+    background-color: var(--vote-background-color);
+    padding: 10px;
+
+    &:not(:first-child) {
+      margin-top: 7.5px;
+    }
+
+    &__title {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    &__score {
+      &--deleted {
+        text-decoration: line-through;
+      }
+    }
+
+    &__feedback {
+      p {
+        margin: 0;
+
+        &:not(:first-child) {
+          margin-top: 5px;
+        }
+      }
+    }
+
+    &__note {
+      font-style: italic;
+    }
+
+    &__score,
+    &__feedback,
+    &__note {
+      margin-top: 5px;
+    }
+
+    &--selected {
+      background-color: var(--vote-selected-background-color);
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .game {
+    &__headerContent {
+      display: block;
+    }
+  }
+}
