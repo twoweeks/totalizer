@@ -14,6 +14,7 @@ export const CommentsMode: FunctionalComponent = () => {
           voterType: vote.type,
           voterGameIndex: vote.gameIndex,
           voterGame: results.gamesList[vote.gameIndex ?? -1],
+          voterJudgeName: results.judgesList[vote.judgeIndex ?? 1],
           contestFeedback: vote.contestFeedback,
         };
       })
@@ -25,7 +26,7 @@ export const CommentsMode: FunctionalComponent = () => {
       {comments.map((commentInfo) => {
         const author =
           commentInfo.voterType === "judge"
-            ? "Организатор"
+            ? `Судья ${commentInfo.voterJudgeName}`
             : `Автор игры ${commentInfo.voterGame}`;
 
         return (

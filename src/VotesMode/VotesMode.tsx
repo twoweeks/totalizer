@@ -12,11 +12,13 @@ export const VotesMode: FunctionalComponent = () => {
   return (
     <div className="authors">
       {results.voters.map((vote, voteIndex) => {
-        const isParticipant = vote.type === 'participant'
-        const authorName = isParticipant ? `Автор игры ${results.gamesList[vote.gameIndex ?? -1]}` : 'Организатор';
+        const isParticipant = vote.type === "participant";
+        const authorName = isParticipant
+          ? `Автор игры ${results.gamesList[vote.gameIndex ?? -1]}`
+          : `Судья ${results.judgesList[vote.judgeIndex ?? -1]}`;
 
         const timestampDate = new Date(vote.timestamp);
-        const formattedTimestamp = timestampDate.toLocaleString();
+        const formattedTimestamp = timestampDate.toLocaleString('ru-RU');
 
         return (
           <CollapseBlock
@@ -37,7 +39,7 @@ export const VotesMode: FunctionalComponent = () => {
               </div>
             }
           >
-            {vote.votes.map((feedback) => {
+            {vote.votes.map((feedback, index) => {
               const gameTitle = results.gamesList[feedback.gameIndex];
               const isSelected = vote.selectedGamesIndices.includes(
                 feedback.gameIndex,
@@ -45,7 +47,7 @@ export const VotesMode: FunctionalComponent = () => {
 
               return (
                 <div
-                  key={vote.gameIndex}
+                  key={index}
                   className={clsx(
                     "author__vote",
                     isSelected ? "author__vote--selected" : null,
@@ -58,12 +60,12 @@ export const VotesMode: FunctionalComponent = () => {
                   </div>
 
                   <div className="author__vote__score">
-                    Оценка: {feedback.score} / 10
+                    Оценка: {feedback.score} / 5
                   </div>
 
                   {isSelected ? (
                     <div className="author__vote__note">
-                      {isParticipant ? 'Автор' : 'Организатор'} выбрал эту игру
+                      {isParticipant ? "Автор" : "Судья"} выбрал эту игру
                     </div>
                   ) : null}
 

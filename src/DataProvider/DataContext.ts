@@ -2,12 +2,14 @@ import { createContext } from "preact";
 
 type Voter = {
   timestamp: string;
-  type: 'judge' | 'participant',
-  gameIndex: number | null,
+  type: "judge" | "participant";
+  gameIndex: number | null;
+  judgeIndex: number | null;
   selectedGamesIndices: number[];
   votes: {
     gameIndex: number;
     score: number;
+    themeScore: number;
     feedback: string[];
   }[];
   contestFeedback: string[];
@@ -15,11 +17,7 @@ type Voter = {
 
 type Results = {
   gamesList: string[];
-  influence: {
-    influence: number;
-    gameIndex: number;
-    scores: number[];
-  }[];
+  judgesList: string[];
   results: {
     gameIndex: number;
     result: number;

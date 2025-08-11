@@ -26,25 +26,16 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
       (result) => result.gameIndex === gameIndex,
     );
 
-    const influenceMap = new Map(
-      results.influence.map((influence) => [
-        influence.gameIndex,
-        influence.influence,
-      ]),
-    );
-
-    const influence = influenceMap.get(gameIndex) || 0;
-
     const feedbacks = [];
 
     for (const vote of results.voters) {
       const feedback = vote.votes.find((vote) => vote.gameIndex === gameIndex);
-      const voterInfluence = influenceMap.get(vote.gameIndex ?? -1) || 0;
 
       feedbacks.push({
+        voterType: vote.type,
         voterGameIndex: vote.gameIndex,
         voterGame: results.gamesList[vote.gameIndex ?? -1],
-        voterInfluence,
+        judgeName: results.judgesList[vote.judgeIndex ?? -1],
         isSelected: vote.selectedGamesIndices.includes(gameIndex),
         feedback,
       });
@@ -53,7 +44,6 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
     return {
       title: gameTitle,
       result: gameResult?.result || 0,
-      influence: influence,
       feedbacks,
     };
   }, [results, gameIndex]);
@@ -74,30 +64,33 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
                 Результат: <b>{game.result}</b>
               </div>
             ) : null}
-            <div>
-              влияние: <b>{game.influence}</b>
-            </div>
-            {game.result ? (
+            {/* {game.result ? (
               <div>
                 место: <b>{place}</b>
               </div>
-            ) : null}
+            ) : null} */}
           </div>
         </Fragment>
       }
     >
-      {game.feedbacks.map((feedbackData) => {
+      {game.feedbacks.map((feedbackData, index) => {
         return (
           <div
-            key={feedbackData.voterGameIndex}
+            key={index}
             className={clsx(
               styles.game__vote,
               feedbackData.isSelected ? styles["game__vote--selected"] : null,
             )}
           >
-            <h4 className={styles.game__vote__title}>
-              Автор игры {feedbackData.voterGame}
-            </h4>
+            {feedbackData.voterType === "judge" ? (
+              <h4 className={styles.game__vote__title}>
+                Судья {feedbackData.judgeName}
+              </h4>
+            ) : (
+              <h4 className={styles.game__vote__title}>
+                Автор игры {feedbackData.voterGame}
+              </h4>
+            )}
             {feedbackData.feedback &&
             feedbackData.feedback.feedback.length !== 0 ? (
               <Fragment>
@@ -105,14 +98,18 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
                   <RenderTextParts textParts={feedbackData.feedback.feedback} />
                 </div>
                 <div className={styles.game__vote__score}>
-                  Оценка {feedbackData.feedback.score} / 10
+                  Оценка за игру {feedbackData.feedback.score} / 5, за тему{" "}
+                  {feedbackData.feedback.themeScore} / 5
                 </div>
               </Fragment>
             ) : null}
             {feedbackData.isSelected ? (
-              <div className={styles.game__vote__note}>
-                Автор выбрал эту игру, влияние {feedbackData.voterInfluence}
-              </div>
+              <Fragment>
+                <div className="author__vote__note">
+                  {feedbackData.voterType === "participant" ? "Автор" : "Судья"}{" "}
+                  выбрал эту игру
+                </div>
+              </Fragment>
             ) : null}
             {feedbackData.feedback?.gameIndex ===
             feedbackData.voterGameIndex ? (
