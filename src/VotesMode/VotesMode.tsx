@@ -60,7 +60,7 @@ export const VotesMode: FunctionalComponent = () => {
                   </div>
 
                   <div className="author__vote__score">
-                    Оценка: {feedback.score} / 5
+                    Оценка за игру {feedback.score} / 5, за тему {feedback.themeScore} / 5
                   </div>
 
                   {isSelected ? (

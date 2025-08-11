@@ -64,11 +64,11 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
                 Результат: <b>{game.result}</b>
               </div>
             ) : null}
-            {/* {game.result ? (
+            {game.result ? (
               <div>
                 место: <b>{place}</b>
               </div>
-            ) : null} */}
+            ) : null}
           </div>
         </Fragment>
       }
@@ -105,7 +105,7 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
             ) : null}
             {feedbackData.isSelected ? (
               <Fragment>
-                <div className="author__vote__note">
+                <div className={styles.game__vote__note}>
                   {feedbackData.voterType === "participant" ? "Автор" : "Судья"}{" "}
                   выбрал эту игру
                 </div>
