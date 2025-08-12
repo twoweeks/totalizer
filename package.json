@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
+    "start": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "biome check",
     "lint:only-errors": "biome check --diagnostic-level=error",
