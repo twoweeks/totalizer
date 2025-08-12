@@ -147,7 +147,7 @@ export const StandardMode: FunctionalComponent = () => {
                       <input
                         type="checkbox"
                         name={InteractiveFormField.hiddenJudges}
-                        value={index}
+                        value={String(index)}
                         checked={interactiveFormValues[InteractiveFormField.hiddenJudges].includes(
                           index,
                         )}
@@ -170,7 +170,7 @@ export const StandardMode: FunctionalComponent = () => {
                           <input
                             type="checkbox"
                             name={InteractiveFormField.hiddenAuthors}
-                            value={voter.gameIndex ?? -1}
+                            value={String(voter.gameIndex ?? -1)}
                             checked={interactiveFormValues[
                               InteractiveFormField.hiddenAuthors
                             ].includes(voter.gameIndex ?? -1)}

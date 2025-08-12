@@ -1,3 +1,5 @@
+import { isNotNil } from "es-toolkit";
+
 import type { Result, ResultsData } from "../../DataProvider/DataContext";
 import type { InteractiveFormValues } from "../types";
 
@@ -15,10 +17,10 @@ export const calculateResults = (
     let selectionCount = 0;
 
     for (const voter of resultsData.voters) {
-      if (voter.judgeIndex && options.hiddenJudges?.includes(voter.judgeIndex)) {
+      if (isNotNil(voter.judgeIndex) && options.hiddenJudges?.includes(voter.judgeIndex)) {
         continue;
       }
-      if (voter.gameIndex && options.hiddenAuthors?.includes(voter.gameIndex)) {
+      if (isNotNil(voter.gameIndex) && options.hiddenAuthors?.includes(voter.gameIndex)) {
         continue;
       }
 
