@@ -84,6 +84,7 @@ export const StandardMode: FunctionalComponent = () => {
             <GameBlock
               key={gameResult.gameIndex}
               gameIndex={gameResult.gameIndex}
+              result={gameResult.result}
               place={index + 1}
               openByDefault={locationSearch.current === OPEN_ALL}
             />

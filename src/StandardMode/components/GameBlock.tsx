@@ -10,12 +10,14 @@ import styles from "./GameBlock.module.scss";
 
 type GameBlockPropsType = {
   gameIndex: number;
+  result: number;
   place: number;
   openByDefault?: boolean;
 };
 
 export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
   gameIndex,
+  result,
   place,
   openByDefault = false,
 }) => {
@@ -23,7 +25,6 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
 
   const game = useMemo(() => {
     const gameTitle = results.gamesList[gameIndex];
-    const gameResult = results.results.find(result => result.gameIndex === gameIndex);
 
     const feedbacks = [];
 
@@ -42,7 +43,6 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
 
     return {
       title: gameTitle,
-      result: gameResult?.result || 0,
       feedbacks,
     };
   }, [results, gameIndex]);
@@ -58,16 +58,12 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
         <Fragment>
           <h2 className={styles.game__title}>{game.title}</h2>
           <div className={styles.game__result}>
-            {game.result ? (
-              <div>
-                Результат: <b>{game.result}</b>
-              </div>
-            ) : null}
-            {game.result ? (
-              <div>
-                место: <b>{place}</b>
-              </div>
-            ) : null}
+            <div>
+              Результат: <b>{result}</b>
+            </div>
+            <div>
+              место: <b>{place}</b>
+            </div>
           </div>
         </Fragment>
       }
