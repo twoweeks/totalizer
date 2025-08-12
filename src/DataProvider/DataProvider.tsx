@@ -3,14 +3,14 @@ import { useEffect, useRef, useState } from "preact/hooks";
 
 import resultsUrl from "../data/result.json?url";
 
-import { DataContext, type DataContextValue } from "./DataContext";
+import { DataContext, type ResultsData } from "./DataContext";
 
 type DataProviderProps = {
   children?: ComponentChildren;
 };
 
 export const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
-  const results = useRef<DataContextValue["results"]>(null);
+  const results = useRef<ResultsData>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +36,7 @@ export const DataProvider: FunctionComponent<DataProviderProps> = ({ children })
 
 const loadData = async (
   setLoading: (loading: boolean) => void,
-  resultsRef: RefObject<DataContextValue["results"]>,
+  resultsRef: RefObject<ResultsData>,
 ) => {
   setLoading(true);
 

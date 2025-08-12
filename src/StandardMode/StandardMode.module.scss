@@ -1,0 +1,41 @@
+.interactive {
+  &__container {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+
+    padding: 5px;
+
+    background-color: var(--game-background-color);
+    color: var(--text-color);
+  }
+
+  &__switchContainer {
+
+  }
+
+  &__form {
+    margin-top: 5px;
+
+    p {
+      margin: 5px 0 5px;
+    }
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+
+    max-width: 300px;
+    max-height: 100px;
+
+    overflow: auto;
+
+    border: 1px solid var(--text-color);
+
+    li {
+      white-space: nowrap;
+      list-style: none;
+    }
+  }
+}

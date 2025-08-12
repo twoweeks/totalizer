@@ -1,32 +1,36 @@
 import { createContext } from "preact";
 
-type Voter = {
+export type Vote = {
+  gameIndex: number;
+  score: number;
+  themeScore: number;
+  feedback: string[];
+};
+
+export type Voter = {
   timestamp: string;
   type: "judge" | "participant";
   gameIndex: number | null;
   judgeIndex: number | null;
   selectedGamesIndices: number[];
-  votes: {
-    gameIndex: number;
-    score: number;
-    themeScore: number;
-    feedback: string[];
-  }[];
+  votes: Vote[];
   contestFeedback: string[];
 };
 
-type Results = {
+export type Result = {
+  gameIndex: number;
+  result: number;
+};
+
+export type ResultsData = {
   gamesList: string[];
   judgesList: string[];
-  results: {
-    gameIndex: number;
-    result: number;
-  }[];
+  results: Result[];
   voters: Voter[];
 };
 
 export type DataContextValue = {
-  results: Results;
+  results: ResultsData;
   resultsUrl: string;
 };
 
