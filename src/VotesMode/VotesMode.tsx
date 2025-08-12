@@ -1,9 +1,10 @@
-import { FunctionalComponent } from "preact";
+import type { FunctionalComponent } from "preact";
 
 import { useDataContext } from "../DataProvider";
 import { CollapseBlock, RenderTextParts } from "../shared";
 
 import "./VotesMode.scss";
+
 import clsx from "clsx";
 
 export const VotesMode: FunctionalComponent = () => {
@@ -18,7 +19,7 @@ export const VotesMode: FunctionalComponent = () => {
           : `Судья ${results.judgesList[vote.judgeIndex ?? -1]}`;
 
         const timestampDate = new Date(vote.timestamp);
-        const formattedTimestamp = timestampDate.toLocaleString('ru-RU');
+        const formattedTimestamp = timestampDate.toLocaleString("ru-RU");
 
         return (
           <CollapseBlock
@@ -29,29 +30,20 @@ export const VotesMode: FunctionalComponent = () => {
             headerContent={
               <div>
                 <div className="author__name">{authorName}</div>
-                <div
-                  className="author__time"
-                  data-is-first={voteIndex === 0 ? "" : null}
-                >
-                  Анкета отправлена{" "}
-                  <span title="Ваше местное время">{formattedTimestamp}</span>
+                <div className="author__time" data-is-first={voteIndex === 0 ? "" : null}>
+                  Анкета отправлена <span title="Ваше местное время">{formattedTimestamp}</span>
                 </div>
               </div>
             }
           >
             {vote.votes.map((feedback, index) => {
               const gameTitle = results.gamesList[feedback.gameIndex];
-              const isSelected = vote.selectedGamesIndices.includes(
-                feedback.gameIndex,
-              );
+              const isSelected = vote.selectedGamesIndices.includes(feedback.gameIndex);
 
               return (
                 <div
                   key={index}
-                  className={clsx(
-                    "author__vote",
-                    isSelected ? "author__vote--selected" : null,
-                  )}
+                  className={clsx("author__vote", isSelected ? "author__vote--selected" : null)}
                 >
                   <h4 className="author__vote__game">{gameTitle}</h4>
 

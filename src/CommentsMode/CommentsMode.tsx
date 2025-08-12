@@ -1,4 +1,4 @@
-import { FunctionalComponent } from "preact";
+import type { FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
 
 import { useDataContext } from "../DataProvider";
@@ -9,7 +9,7 @@ export const CommentsMode: FunctionalComponent = () => {
 
   const comments = useMemo(() => {
     return results.voters
-      .map((vote) => {
+      .map(vote => {
         return {
           voterType: vote.type,
           voterGameIndex: vote.gameIndex,
@@ -18,12 +18,12 @@ export const CommentsMode: FunctionalComponent = () => {
           contestFeedback: vote.contestFeedback,
         };
       })
-      .filter((vote) => vote.contestFeedback.length > 0);
+      .filter(vote => vote.contestFeedback.length > 0);
   }, [results]);
 
   return (
     <div className="comments">
-      {comments.map((commentInfo) => {
+      {comments.map(commentInfo => {
         const author =
           commentInfo.voterType === "judge"
             ? `Судья ${commentInfo.voterJudgeName}`

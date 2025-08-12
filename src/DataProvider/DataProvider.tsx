@@ -1,18 +1,16 @@
-import { FunctionComponent, ComponentChildren } from "preact";
-import { useRef, useState, useEffect } from "preact/hooks";
-import { MutableRefObject } from "preact/compat";
-
-import { DataContext } from "./DataContext";
+import type { ComponentChildren, FunctionComponent } from "preact";
+import type { MutableRefObject } from "preact/compat";
+import { useEffect, useRef, useState } from "preact/hooks";
 
 import resultsUrl from "../data/result.json?url";
+
+import { DataContext } from "./DataContext";
 
 type DataProviderProps = {
   children?: ComponentChildren;
 };
 
-export const DataProvider: FunctionComponent<DataProviderProps> = ({
-  children,
-}) => {
+export const DataProvider: FunctionComponent<DataProviderProps> = ({ children }) => {
   const results = useRef<any>(null);
 
   const [loading, setLoading] = useState(false);

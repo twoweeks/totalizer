@@ -1,4 +1,4 @@
-import { FunctionComponent, ComponentChildren, VNode } from "preact";
+import type { ComponentChildren, FunctionComponent, VNode } from "preact";
 import { useState } from "preact/hooks";
 
 import clsx from "clsx";
@@ -31,12 +31,7 @@ export const CollapseBlock: FunctionComponent<CollapseBlockProps> = ({
   return (
     <div className={clsx(styles.collapseBlock, baseClassName)}>
       <div className={clsx(styles.collapseBlock__header, headerClassName)}>
-        <div
-          className={clsx(
-            styles.collapseBlock__header__content,
-            headerContentClassName,
-          )}
-        >
+        <div className={clsx(styles.collapseBlock__header__content, headerContentClassName)}>
           {headerContent}
         </div>
 

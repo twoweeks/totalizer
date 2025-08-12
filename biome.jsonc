@@ -1,0 +1,83 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "root": true,
+
+  "files": {
+    "ignoreUnknown": true,
+    "maxSize": 5242880, // 5 MB
+    "includes": ["**/*.{js,ts,tsx,json,jsonc}", "!**/dist", "!src/data/*", "!.vscode"]
+  },
+
+  "formatter": {
+    "enabled": true,
+    "useEditorconfig": true,
+    "lineWidth": 100,
+    "bracketSameLine": false,
+    "bracketSpacing": true
+  },
+
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "suspicious": {
+        "noArrayIndexKey": "warn"
+      }
+    }
+  },
+
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "useSortedKeys": "off",
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ["preact", "preact/**"],
+              ":BLANK_LINE:",
+              [":PACKAGE:", "!src/**"],
+              ":BLANK_LINE:",
+              ":ALIAS:",
+              ":BLANK_LINE:",
+              ["src", "src/**"],
+              ":BLANK_LINE:",
+              ["..", "../**"],
+              ":BLANK_LINE:",
+              [".", "./**"]
+            ]
+          }
+        }
+      }
+    }
+  },
+
+  "javascript": {
+    "jsxRuntime": "transparent",
+    "formatter": {
+      "arrowParentheses": "asNeeded",
+      "quoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "jsxQuoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+
+  "overrides": [
+    {
+      "includes": ["**/*.spec.ts", "**/*.test.ts"],
+      "linter": {
+        "domains": {
+          "test": "all"
+        }
+      }
+    },
+    {
+      "includes": ["**/index.ts"],
+      "assist": {
+        "enabled": false
+      }
+    }
+  ]
+}

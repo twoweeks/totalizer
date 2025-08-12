@@ -1,15 +1,13 @@
-import { FunctionComponent, Fragment } from "preact";
+import { Fragment, type FunctionComponent } from "preact";
 
 type RenderTextPartsProps = {
-  textParts: any[];
+  textParts: string[];
 };
 
-export const RenderTextParts: FunctionComponent<RenderTextPartsProps> = ({
-  textParts,
-}) => {
+export const RenderTextParts: FunctionComponent<RenderTextPartsProps> = ({ textParts }) => {
   return (
     <Fragment>
-      {textParts.map((textPart: string, index: number) => (
+      {textParts.map((textPart, index) => (
         <p key={index}>{textPart}</p>
       ))}
     </Fragment>

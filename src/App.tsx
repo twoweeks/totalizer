@@ -1,21 +1,17 @@
-import { FunctionalComponent, JSX } from "preact";
-import { useState, useCallback, useMemo } from "preact/hooks";
+import type { FunctionalComponent, JSX } from "preact";
+import { useCallback, useMemo, useState } from "preact/hooks";
 
+import { CommentsMode } from "./CommentsMode";
 import { DataProvider } from "./DataProvider";
-
 import { StandardMode } from "./StandardMode";
 import { VotesMode } from "./VotesMode";
-import { CommentsMode } from "./CommentsMode";
 
 export const App: FunctionalComponent = () => {
   const [pageMode, setPageMode] = useState<PageModeKey>(PageMode.Standard);
 
-  const handleModeChange = useCallback(
-    (event: JSX.TargetedEvent<HTMLInputElement, Event>) => {
-      setPageMode(event.currentTarget.value as PageModeKey);
-    },
-    [],
-  );
+  const handleModeChange = useCallback((event: JSX.TargetedEvent<HTMLInputElement, Event>) => {
+    setPageMode(event.currentTarget.value as PageModeKey);
+  }, []);
 
   const pageContent = useMemo(() => {
     switch (pageMode) {
@@ -72,8 +68,7 @@ export const App: FunctionalComponent = () => {
       </DataProvider>
 
       <footer class="copyright">
-        TWG Totalizer -{" "}
-        <a href="https://github.com/twoweeks/totalizer">GitHub</a>
+        TWG Totalizer - <a href="https://github.com/twoweeks/totalizer">GitHub</a>
       </footer>
     </div>
   );

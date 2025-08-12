@@ -1,5 +1,6 @@
-import { FunctionalComponent, Fragment } from "preact";
+import { Fragment, type FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
+
 import clsx from "clsx";
 
 import { useDataContext } from "../../DataProvider";
@@ -22,14 +23,12 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
 
   const game = useMemo(() => {
     const gameTitle = results.gamesList[gameIndex];
-    const gameResult = results.results.find(
-      (result) => result.gameIndex === gameIndex,
-    );
+    const gameResult = results.results.find(result => result.gameIndex === gameIndex);
 
     const feedbacks = [];
 
     for (const vote of results.voters) {
-      const feedback = vote.votes.find((vote) => vote.gameIndex === gameIndex);
+      const feedback = vote.votes.find(vote => vote.gameIndex === gameIndex);
 
       feedbacks.push({
         voterType: vote.type,
@@ -83,16 +82,11 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
             )}
           >
             {feedbackData.voterType === "judge" ? (
-              <h4 className={styles.game__vote__title}>
-                Судья {feedbackData.judgeName}
-              </h4>
+              <h4 className={styles.game__vote__title}>Судья {feedbackData.judgeName}</h4>
             ) : (
-              <h4 className={styles.game__vote__title}>
-                Автор игры {feedbackData.voterGame}
-              </h4>
+              <h4 className={styles.game__vote__title}>Автор игры {feedbackData.voterGame}</h4>
             )}
-            {feedbackData.feedback &&
-            feedbackData.feedback.feedback.length !== 0 ? (
+            {feedbackData.feedback && feedbackData.feedback.feedback.length !== 0 ? (
               <Fragment>
                 <div className={styles.game__vote__feedback}>
                   <RenderTextParts textParts={feedbackData.feedback.feedback} />
@@ -106,13 +100,11 @@ export const GameBlock: FunctionalComponent<GameBlockPropsType> = ({
             {feedbackData.isSelected ? (
               <Fragment>
                 <div className={styles.game__vote__note}>
-                  {feedbackData.voterType === "participant" ? "Автор" : "Судья"}{" "}
-                  выбрал эту игру
+                  {feedbackData.voterType === "participant" ? "Автор" : "Судья"} выбрал эту игру
                 </div>
               </Fragment>
             ) : null}
-            {feedbackData.feedback?.gameIndex ===
-            feedbackData.voterGameIndex ? (
+            {feedbackData.feedback?.gameIndex === feedbackData.voterGameIndex ? (
               <div className={styles.game__vote__note}>Игра автора</div>
             ) : null}
           </div>

@@ -1,8 +1,9 @@
-import { FunctionalComponent, Fragment } from "preact";
-import { useRef, useMemo } from "preact/hooks";
+import { Fragment, type FunctionalComponent } from "preact";
+import { useCallback, useMemo, useRef } from "preact/hooks";
+
+import { useDataContext } from "../DataProvider";
 
 import { GameBlock } from "./components";
-import { useDataContext } from "../DataProvider";
 
 export const StandardMode: FunctionalComponent = () => {
   const { results, resultsUrl } = useDataContext();
@@ -12,6 +13,10 @@ export const StandardMode: FunctionalComponent = () => {
   const sortedByVotesResults = useMemo(() => {
     return results.results.toSorted((a, b) => b.result - a.result);
   }, [results]);
+
+  const handleDownloadData = useCallback(() => {
+    downloadData(resultsUrl, "twg-28-results-data");
+  }, []);
 
   return (
     <Fragment>
@@ -29,18 +34,15 @@ export const StandardMode: FunctionalComponent = () => {
       </div>
 
       <div className="buttons">
-        <div
-          className="buttons__button"
-          onClick={() => downloadData(resultsUrl, "twg-25-results-data")}
-        >
-          <button>data source</button>
-        </div>
+        <button type="button" className="buttons__button" onClick={handleDownloadData}>
+          download data source
+        </button>
       </div>
     </Fragment>
   );
 };
 
-const downloadData = (url: any, name: string) => {
+const downloadData = (url: string, name: string) => {
   const dlAnchorElem = document.createElement("a");
   dlAnchorElem.setAttribute("href", url);
   dlAnchorElem.setAttribute("download", `${name}.json`);

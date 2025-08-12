@@ -1,0 +1,4 @@
+#!/bin/bash
+
+npm run lint:only-errors
+npm run typecheck
