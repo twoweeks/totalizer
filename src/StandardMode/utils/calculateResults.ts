@@ -10,11 +10,7 @@ export const calculateResults = (
   options: CalculateResultsFnOptions = {},
 ): Result[] => {
   return resultsData.gamesList.map((_gameTitle, gameIndex) => {
-    let totalWeightedScore = 0;
-    let totalWeightForScore = 0;
-    let totalWeightedThemeScore = 0;
-    let totalWeightForThemeScore = 0;
-    let selectionCount = 0;
+    let totalScore = 0;
 
     for (const voter of resultsData.voters) {
       if (isNotNil(voter.judgeIndex) && options.hiddenJudges?.includes(voter.judgeIndex)) {
@@ -24,47 +20,34 @@ export const calculateResults = (
         continue;
       }
 
-      // Judges have double weight
-      const weight = voter.type === "judge" ? 2 : 1;
+      const isJudge = voter.type === "judge";
+      const scoreMultiplier = isJudge ? 2 : 1;
 
-      // Calculate weighted scores from votes
+      // Sum scores and theme scores (with judge multiplier)
       for (const vote of voter.votes) {
         if (
           vote.gameIndex === gameIndex &&
           (options.countThemselvesVotes || voter.gameIndex !== gameIndex)
         ) {
           if (!Number.isNaN(vote.score)) {
-            totalWeightedScore += vote.score * weight;
-            totalWeightForScore += weight;
+            totalScore += vote.score * scoreMultiplier;
           }
           if (!Number.isNaN(vote.themeScore)) {
-            totalWeightedThemeScore += vote.themeScore * weight;
-            totalWeightForThemeScore += weight;
+            totalScore += vote.themeScore * scoreMultiplier;
           }
         }
       }
 
-      // Count selections
+      // Add points for being selected as favorite (2 for participant, 4 for judge)
       if (
         voter.selectedGamesIndices.includes(gameIndex) &&
         (options.countThemselvesVotes || voter.gameIndex !== gameIndex)
       ) {
-        selectionCount += weight;
+        totalScore += isJudge ? 4 : 2;
       }
     }
 
-    // 1. Calculate average of all games scores
-    const averageScore = totalWeightForScore > 0 ? totalWeightedScore / totalWeightForScore : 0;
-
-    // 2. Calculate average of theme scores
-    const averageThemeScore =
-      totalWeightForThemeScore > 0 ? totalWeightedThemeScore / totalWeightForThemeScore : 0;
-
-    // 3. Sum these values
-    const sumOfAverages = averageScore + averageThemeScore;
-
-    // 4. Sum value from third step, and value from fourth step multiplied by 2
-    const finalResult = sumOfAverages + selectionCount * 2;
+    const finalResult = totalScore;
 
     return {
       gameIndex,
