@@ -14,14 +14,14 @@
   },
   "dependencies": {
     "clsx": "2.1.1",
-    "es-toolkit": "1.39.9",
-    "preact": "10.27.0"
+    "es-toolkit": "1.44.0",
+    "preact": "10.28.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.4",
-    "@preact/preset-vite": "2.10.2",
-    "sass": "1.90.0",
-    "typescript": "5.9.2",
-    "vite": "7.1.2"
+    "@biomejs/biome": "2.4.4",
+    "@preact/preset-vite": "2.10.3",
+    "sass": "1.97.3",
+    "typescript": "5.9.3",
+    "vite": "7.3.1"
   }
 }
